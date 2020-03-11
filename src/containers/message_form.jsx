@@ -25,7 +25,7 @@ class MessageForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.createMessage('general', this.props.currentUser, this.state.value);
+    this.props.createMessage(this.props.selectedChannel, this.props.currentUser, this.state.value);
     this.setState({ value: '' }); // Reset message input
   }
 
@@ -46,7 +46,8 @@ class MessageForm extends Component {
 
 function mapStateToProps(state) {
   return {
-    currentUser: state.currentUser
+    currentUser: state.currentUser,
+    selectedChannel: state.selectedChannel
   };
 }
 

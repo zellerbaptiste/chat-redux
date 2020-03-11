@@ -7,31 +7,44 @@ import Message from '../components/message';
 
 class MessageList extends Component {
   componentWillMount() {
-    this.props.fetchMessages();
+    this.fetchMessages();
   }
 
   componentDidMount() {
-    this.refresher = setInterval(this.props.fetchMessages, 5000);
+    this.refresher = setInterval(this.fetchMessages, 5000);
+  }
+
+  componentDidUpdate() {
+    this.list.scrollTop = this.list.scrollHeight;
   }
 
   componentWillUnmount() {
     clearInterval(this.refresher);
   }
 
+  fetchMessages = () => {
+    this.props.fetchMessages(this.props.selectedChannel);
+  }
+
   render() {
     return (
-      this.props.messages.map((message) => {
-        return (
-          <Message message={message} />
-        );
-      })
+      <div className="channel-content" ref={(list) => { this.list = list; }}>
+        {
+          this.props.messages.map((message) => {
+            return (
+              <Message message={message} />
+            );
+          })
+        }
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    messages: state.messages
+    messages: state.messages,
+    selectedChannel: state.selectedChannel
   };
 }
 

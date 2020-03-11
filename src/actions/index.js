@@ -1,4 +1,4 @@
-export function fetchMessages(channel = 'general') {
+export function fetchMessages(channel) {
   const promise = fetch(`https://wagon-chat.herokuapp.com/${channel}/messages`).then(r => r.json());
 
   return {
@@ -7,7 +7,7 @@ export function fetchMessages(channel = 'general') {
   };
 }
 
-export function createMessage(channel = 'general', author = 'admin', content) {
+export function createMessage(channel, author, content) {
   const url = `https://wagon-chat.herokuapp.com/${channel}/messages`;
   const body = { author, content };
   const promise = fetch(url, {
@@ -22,5 +22,12 @@ export function createMessage(channel = 'general', author = 'admin', content) {
   return {
     type: 'CREATE_MESSAGE',
     payload: promise
+  };
+}
+
+export function selectChannel(channel) {
+  return {
+    type: 'SELECT_CHANNEL',
+    payload: channel
   };
 }

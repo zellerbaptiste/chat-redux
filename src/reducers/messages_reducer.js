@@ -1,4 +1,3 @@
-/* eslint-disable no-case-declarations */
 const messagesReducer = (state, action) => {
   if (state === undefined) {
     return [];
@@ -8,10 +7,11 @@ const messagesReducer = (state, action) => {
     case 'FETCH_MESSAGES':
       return action.payload.messages;
 
-    case 'CREATE_MESSAGE':
+    case 'CREATE_MESSAGE': {
       const copiedState = state.slice(0);
       copiedState.push(action.payload);
       return copiedState;
+    }
 
     default:
       return state;
