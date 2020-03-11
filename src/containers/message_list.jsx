@@ -32,7 +32,7 @@ class MessageList extends Component {
         {
           this.props.messages.map((message) => {
             return (
-              <Message message={message} />
+              <Message key={message.id} message={message} />
             );
           })
         }
